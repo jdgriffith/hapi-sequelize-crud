@@ -154,20 +154,24 @@ export const list = ({ server, model, prefix = '/', config }) => {
 
     @error
     async handler(request, reply) {
-      const include = parseInclude(request);
+      const include = [{ all: true }];
       const where = parseWhere(request);
       const { limit, offset } = parseLimitAndOffset(request);
       const order = parseOrder(request);
 
-      if (include instanceof Error) return void reply(include);
-
-      const list = await model.findAll({
+      const list = await model.findAndCountAll({
         where, include, limit, offset, order,
       });
 
-      if (!list.length) return void reply(notFound('Nothing found.'));
+      const response = {
+        count: list.count,
+        limit,
+        offset,
+        order,
+        data: list.map((item) => item.toJSON()),
+      };
 
-      reply(list.map((item) => item.toJSON()));
+      reply(response);
     },
 
     config,
@@ -181,12 +185,10 @@ export const get = ({ server, model, prefix = '/', config }) => {
 
     @error
     async handler(request, reply) {
-      const include = parseInclude(request);
+      const include = [{ all: true }];
       const where = parseWhere(request);
       const { id } = request.params;
       if (id) where[model.primaryKeyField] = id;
-
-      if (include instanceof Error) return void reply(include);
 
       const instance = await model.findOne({ where, include });
 
@@ -205,20 +207,24 @@ export const scope = ({ server, model, prefix = '/', config }) => {
 
     @error
     async handler(request, reply) {
-      const include = parseInclude(request);
+      const include = [{ all: true }];
       const where = parseWhere(request);
       const { limit, offset } = parseLimitAndOffset(request);
       const order = parseOrder(request);
 
-      if (include instanceof Error) return void reply(include);
-
-      const list = await model.scope(request.params.scope).findAll({
+      const list = await model.scope(request.params.scope).findAndCountAll({
         include, where, limit, offset, order,
       });
 
-      if (!list.length) return void reply(notFound('Nothing found.'));
+      const response = {
+        count: list.count,
+        limit,
+        offset,
+        order,
+        data: list.map((item) => item.toJSON()),
+      };
 
-      reply(list.map((item) => item.toJSON()));
+      reply(response);
     },
     config,
   });

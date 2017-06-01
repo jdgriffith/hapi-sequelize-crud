@@ -1,6 +1,6 @@
 {
-  "name": "hapi-sequelize-crud",
-  "version": "2.9.3",
+  "name": "hapi-sequelize-crud-extended",
+  "version": "2.9.4",
   "description": "Hapi plugin that automatically generates RESTful API for CRUD",
   "main": "build/index.js",
   "config": {
@@ -17,12 +17,12 @@
     "watch": "SCRIPTY_SILENT=true scripty"
   },
   "repository": {
-    "git": "https://github.com/mdibaiee/hapi-sequelize-crud"
+    "git": "https://github.com/jdgriffith/hapi-sequelize-crud-extended"
   },
   "files": [
     "build"
   ],
-  "author": "Mahdi Dibaiee <mdibaiee@aol.com> (http://dibaiee.ir/)",
+  "author": "Justin Griffith",
   "license": "MIT",
   "devDependencies": {
     "ava": "^0.16.0",
