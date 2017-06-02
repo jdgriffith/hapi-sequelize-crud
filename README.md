@@ -1,4 +1,4 @@
-hapi-sequelize-crud [![CircleCI](https://circleci.com/gh/mdibaiee/hapi-sequelize-crud.svg?style=svg)](https://circleci.com/gh/mdibaiee/hapi-sequelize-crud)
+hapi-sequelize-crud-extended [![CircleCI](https://circleci.com/gh/mdibaiee/hapi-sequelize-crud.svg?style=svg)](https://circleci.com/gh/mdibaiee/hapi-sequelize-crud)
 ===================
 
 Automatically generate a RESTful API for your models and associations
@@ -6,12 +6,12 @@ Automatically generate a RESTful API for your models and associations
 This plugin depends on [`hapi-sequelize`](https://github.com/danecando/hapi-sequelize).
 
 ```
-npm install -S hapi-sequelize-crud
+npm install -S hapi-sequelize-crud-extended
 ```
 
 ## Configure
 
-Please note that you should register `hapi-sequelize-crud` after defining your
+Please note that you should register `hapi-sequelize-crud-extended` after defining your
 associations.
 
 ```javascript
@@ -26,9 +26,9 @@ let db = server.plugins['hapi-sequelize'].db;
 let models = db.sequelize.models;
 associations(models); // pretend this function defines our associations
 
-// Now, register hapi-sequelize-crud
+// Now, register hapi-sequelize-crud-extended
 await register({
-  register: require('hapi-sequelize-crud'),
+  register: require('hapi-sequelize-crud-extended'),
   options: {
     prefix: '/v1',
     name: 'db', // the same name you used for configuring `hapi-sequelize` (options.name)
