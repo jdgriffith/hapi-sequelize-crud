@@ -1,6 +1,6 @@
 {
   "name": "hapi-sequelize-crud-extended",
-  "version": "2.9.4",
+  "version": "2.9.7",
   "description": "Hapi plugin that automatically generates RESTful API for CRUD",
   "main": "build/index.js",
   "config": {
@@ -17,7 +17,7 @@
     "watch": "SCRIPTY_SILENT=true scripty"
   },
   "repository": {
-    "git": "https://github.com/jdgriffith/hapi-sequelize-crud-extended"
+    "git": "https://github.com/jdgriffith/hapi-sequelize-crud"
   },
   "files": [
     "build"
