@@ -148,13 +148,15 @@ export default (server, model, { prefix, defaultConfig: config, models: permissi
 };
 
 export const list = ({ server, model, prefix = '/', config }) => {
+  // add api tag
+  config.tags = ['api'];
   server.route({
     method: 'GET',
     path: path.join(prefix, model._plural),
 
     @error
     async handler(request, reply) {
-      const include = [{ all: true }];
+      const include = [{ all: true, nested: true }];
       const where = parseWhere(request);
       const { limit, offset } = parseLimitAndOffset(request);
       const order = parseOrder(request);
@@ -165,10 +167,10 @@ export const list = ({ server, model, prefix = '/', config }) => {
 
       const response = {
         count: list.count,
-        limit,
-        offset,
+        limit: limit || null,
+        offset: offset || null,
         order,
-        data: list.map((item) => item.toJSON()),
+        data: list.rows.map((item) => item.toJSON()),
       };
 
       reply(response);
@@ -179,13 +181,15 @@ export const list = ({ server, model, prefix = '/', config }) => {
 };
 
 export const get = ({ server, model, prefix = '/', config }) => {
+  // add api tag
+  config.tags = ['api'];
   server.route({
     method: 'GET',
     path: path.join(prefix, model._singular, '{id?}'),
 
     @error
     async handler(request, reply) {
-      const include = [{ all: true }];
+      const include = [{ all: true, nested: true }];
       const where = parseWhere(request);
       const { id } = request.params;
       if (id) where[model.primaryKeyField] = id;
@@ -201,13 +205,15 @@ export const get = ({ server, model, prefix = '/', config }) => {
 };
 
 export const scope = ({ server, model, prefix = '/', config }) => {
+  // add api tag
+  config.tags = ['api'];
   server.route({
     method: 'GET',
     path: path.join(prefix, model._plural, '{scope}'),
 
     @error
     async handler(request, reply) {
-      const include = [{ all: true }];
+      const include = [{ all: true, nested: true }];
       const where = parseWhere(request);
       const { limit, offset } = parseLimitAndOffset(request);
       const order = parseOrder(request);
@@ -218,10 +224,10 @@ export const scope = ({ server, model, prefix = '/', config }) => {
 
       const response = {
         count: list.count,
-        limit,
-        offset,
+        limit: limit || null,
+        offset: offset || null,
         order,
-        data: list.map((item) => item.toJSON()),
+        data: list.rows.map((item) => item.toJSON()),
       };
 
       reply(response);
@@ -231,6 +237,8 @@ export const scope = ({ server, model, prefix = '/', config }) => {
 };
 
 export const create = ({ server, model, prefix = '/', config }) => {
+  // add api tag
+  config.tags = ['api'];
   server.route({
     method: 'POST',
     path: path.join(prefix, model._singular),
@@ -247,6 +255,8 @@ export const create = ({ server, model, prefix = '/', config }) => {
 };
 
 export const destroy = ({ server, model, prefix = '/', config }) => {
+  // add api tag
+  config.tags = ['api'];
   server.route({
     method: 'DELETE',
     path: path.join(prefix, model._singular, '{id?}'),
@@ -277,6 +287,8 @@ export const destroy = ({ server, model, prefix = '/', config }) => {
 };
 
 export const destroyAll = ({ server, model, prefix = '/', config }) => {
+  // add api tag
+  config.tags = ['api'];
   server.route({
     method: 'DELETE',
     path: path.join(prefix, model._plural),
@@ -306,6 +318,8 @@ export const destroyAll = ({ server, model, prefix = '/', config }) => {
 };
 
 export const destroyScope = ({ server, model, prefix = '/', config }) => {
+  // add api tag
+  config.tags = ['api'];
   server.route({
     method: 'DELETE',
     path: path.join(prefix, model._plural, '{scope}'),
@@ -331,6 +345,8 @@ export const destroyScope = ({ server, model, prefix = '/', config }) => {
 };
 
 export const update = ({ server, model, prefix = '/', config }) => {
+  // add api tag
+  config.tags = ['api'];
   server.route({
     method: 'PUT',
     path: path.join(prefix, model._singular, '{id}'),
